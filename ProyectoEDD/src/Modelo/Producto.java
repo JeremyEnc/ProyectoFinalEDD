@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -28,6 +28,31 @@ public class Producto  implements Serializable{
     //Color color;
     Double porcentajeDesc;
     boolean estadoDes;
+
+    public Producto(Marca marca, Double precioVenta, Double precioCompra, int stock, String nombre, String codigo, Long idProducto, TipoPrenda tipoPrenda, Prenda prenda, Double porcentajeDesc, boolean estadoDes) {
+        this.marca = marca;
+        this.precioVenta = precioVenta;
+        this.precioCompra = precioCompra;
+        this.stock = stock;
+        this.nombre = nombre;
+        this.codigo = codigo;
+        this.idProducto = idProducto;
+        this.tipoPrenda = tipoPrenda;
+        this.prenda = prenda;
+        this.porcentajeDesc = porcentajeDesc;
+        this.estadoDes = estadoDes;
+    }
+
+    public Producto() {
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
 
     public Long getId() {
         return id;
