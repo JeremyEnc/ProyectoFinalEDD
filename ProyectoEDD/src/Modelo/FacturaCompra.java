@@ -5,20 +5,20 @@
  */
 package Modelo;
 
-import java.util.Date;
+import Controlador.EstructurasDinamicas.Lista;
 
 /**
  *
  * @author jere_
  */
-public class FacturaCompra
+public class Proveedor
 {
     private Long id;
-    private String nroFactura;
-    private Date fecha;
-    private Double subTotal;
-    private Double iva;
-    private Double total;
+    private Long idDetalleFactura;
+    private String ruc;
+    private String nombreProveedor;
+    private String direccionProveedor;
+    Lista<FacturaCompra> listaFacturasCompras;
 
     public Long getId() {
         return id;
@@ -28,44 +28,44 @@ public class FacturaCompra
         this.id = id;
     }
 
-    public String getNroFactura() {
-        return nroFactura;
+    public Long getIdDetalleFactura() {
+        return idDetalleFactura;
     }
 
-    public void setNroFactura(String nroFactura) {
-        this.nroFactura = nroFactura;
+    public void setIdDetalleFactura(Long idDetalleFactura) {
+        this.idDetalleFactura = idDetalleFactura;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getRuc() {
+        return ruc;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
     }
 
-    public Double getSubTotal() {
-        return subTotal;
+    public String getNombreProveedor() {
+        return nombreProveedor;
     }
 
-    public void setSubTotal(Double subTotal) {
-        this.subTotal = subTotal;
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
     }
 
-    public Double getIva() {
-        return iva;
+    public String getDireccionProveedor() {
+        return direccionProveedor;
     }
 
-    public void setIva(Double iva) {
-        this.iva = iva;
+    public void setDireccionProveedor(String direccionProveedor) {
+        this.direccionProveedor = direccionProveedor;
     }
 
-    public Double getTotal() {
-        return total;
+    public Lista<FacturaCompra> getListaFacturasCompras() {
+        return listaFacturasCompras;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setListaFacturasCompras(Lista<FacturaCompra> listaFacturasCompras) {
+        this.listaFacturasCompras = listaFacturasCompras;
     }
     
     
