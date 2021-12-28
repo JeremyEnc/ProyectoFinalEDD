@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Factura {
     private Long id;
+    private Long id_Persona;
     private String nroFactura;
     private Date fecha;
     private Double valorDescuento;
@@ -36,6 +37,14 @@ public class Factura {
 
     public void setNroFactura(String nroFactura) {
         this.nroFactura = nroFactura;
+    }
+    
+    public Long getId_Persona() {
+        return id_Persona;
+    }
+
+    public void setId_Persona(Long id_persona) {
+        this.id_Persona = id_Persona;
     }
 
     public Date getFecha() {
