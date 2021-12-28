@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+
 /**
  *
  * @author jere_
@@ -17,6 +18,16 @@ public class DetalleCompra
     private Integer cantidad;
     private Double precioUnitario;
     private Double precioTotal;
+
+    public DetalleCompra(Long id, Long idFactura, Long idProducto, Integer cantidad, Double precioUnitario)
+    {
+        this.id = id;
+        this.idFactura = idFactura;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.precioTotal = precioUnitario * cantidad;
+    }
 
     public Long getId() {
         return id;
@@ -68,3 +79,4 @@ public class DetalleCompra
     
     
 }
+
