@@ -6,6 +6,7 @@
 package Controlador;
 
 import Controlador.EstructurasDinamicas.Lista;
+import Controlador.ProductoController;
 import Modelo.DetalleFactura;
 import Modelo.Factura;
 import Modelo.Persona;
@@ -98,18 +99,20 @@ public class ControladorFactura {
         factura.setTotal(total);
     }
     public Double calcularPrecioUnitario(DetalleFactura detalleFactura){
-        Double precioReal = (detalleFactura.getProducto().getPrecioVenta()) - (detalleFactura.getProducto().calcularDescuento());
+        ProductoController productCtrl = new ProductoController();
+        productCtrl.setProducto(detalleFactura.getProducto());
+        Double precioReal = (detalleFactura.getProducto().getPrecioVenta()) - (productCtrl.calcularDescuento());
         return precioReal;
     }
 
-//    public void generar_nroFactura() {
-//        String nroFactura = String.valueOf(Math.random() * 10000);
-//        for (int i = 0; i < listar().length(); i++) {
-//            if (Objects.equals(listar().consultarDatoPosicion(i).getNroFactura(), nroFactura)) {
-//                nroFactura = String.valueOf(Math.random() * 10000);
-//                i = 0;
-//            }
-//        }
-//        factura.setNroFactura(nroFactura);
-//    }
+    public void generar_nroFactura() {
+        String nroFactura = String.valueOf(Math.random() * 10000);
+        for (int i = 0; i < listar().length(); i++) {
+            if (Objects.equals(listar().consultarDatoPosicion(i).getNroFactura(), nroFactura)) {
+                nroFactura = String.valueOf(Math.random() * 10000);
+                i = 0;
+            }
+        }
+        factura.setNroFactura(nroFactura);
+    }
 }
