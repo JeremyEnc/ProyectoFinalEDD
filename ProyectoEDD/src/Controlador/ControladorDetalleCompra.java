@@ -5,19 +5,11 @@
  */
 package Controlador;
 
-import Controlador.Dao.AdaptadorDao;
-import Modelo.DetalleCompra;
-
 /**
  *
  * @author jere_
  */
-public class ControladorDetalleCompra extends AdaptadorDao<DetalleCompra>
+public class ControladorDetalleCompra
 {
-
-    public ControladorDetalleCompra()
-    {
-        super(DetalleCompra.class);
-    }
     
 }
