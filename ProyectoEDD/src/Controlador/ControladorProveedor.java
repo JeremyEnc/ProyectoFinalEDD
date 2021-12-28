@@ -6,6 +6,7 @@
 package Controlador;
 
 import Controlador.Dao.AdaptadorDao;
+import Modelo.FacturaCompra;
 import Modelo.Proveedor;
 
 /**
@@ -14,10 +15,17 @@ import Modelo.Proveedor;
  */
 public class ControladorProveedor extends AdaptadorDao<Proveedor>
 {
+    Proveedor proveedor;
     
     public ControladorProveedor()
     {
         super(Proveedor.class);
     }
+    
+    public void guardarFacturaCompra(FacturaCompra factura)
+    {
+        proveedor.getListaFacturasCompras().add(factura);
+    }
+    
     
 }
