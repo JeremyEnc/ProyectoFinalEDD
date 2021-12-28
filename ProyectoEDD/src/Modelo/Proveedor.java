@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import Controlador.EstructurasDinamicas.Lista;
+
 /**
  *
  * @author jere_
@@ -16,6 +18,7 @@ public class Proveedor
     private String ruc;
     private String nombreProveedor;
     private String direccionProveedor;
+    Lista<FacturaCompra> listaFacturasCompras;
 
     public Long getId() {
         return id;
@@ -56,4 +59,14 @@ public class Proveedor
     public void setDireccionProveedor(String direccionProveedor) {
         this.direccionProveedor = direccionProveedor;
     }
+
+    public Lista<FacturaCompra> getListaFacturasCompras() {
+        return listaFacturasCompras;
+    }
+
+    public void setListaFacturasCompras(Lista<FacturaCompra> listaFacturasCompras) {
+        this.listaFacturasCompras = listaFacturasCompras;
+    }
+    
+    
 }
