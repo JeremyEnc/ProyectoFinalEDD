@@ -108,7 +108,7 @@ public class ControladorFactura {
     public void generar_nroFactura() {
         String nroFactura = String.valueOf(Math.random() * 10000);
         for (int i = 0; i < persona.getFacturas().length(); i++) {
-            if (Objects.equals(persona.getFacturas().consultarDatoPosicion(i).getNroFactura(), nroFactura)) {
+            if (Objects.equals(persona.getFacturas().getByIndex(i).getNroFactura(), nroFactura)) {
                 nroFactura = String.valueOf(Math.random() * 10000);
                 i = 0;
             }
