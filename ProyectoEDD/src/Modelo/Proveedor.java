@@ -6,34 +6,35 @@
 package Modelo;
 
 import Controlador.EstructurasDinamicas.Lista;
+import java.io.Serializable;
 
 /**
  *
  * @author jere_
  */
-public class Proveedor
+public class Proveedor implements Serializable
 {
     private Long id;
-    private Long idDetalleFactura;
     private String ruc;
     private String nombreProveedor;
+    private String apellidoProveedor;
     private String direccionProveedor;
     Lista<FacturaCompra> listaFacturasCompras;
 
+    public Proveedor(Long id, String ruc, String nombreProveedor, String apellidoProveedor, String direccionProveedor) {
+        this.id = id;
+        this.ruc = ruc;
+        this.nombreProveedor = nombreProveedor;
+        this.apellidoProveedor = apellidoProveedor;
+        this.direccionProveedor = direccionProveedor;
+    }
+    
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdDetalleFactura() {
-        return idDetalleFactura;
-    }
-
-    public void setIdDetalleFactura(Long idDetalleFactura) {
-        this.idDetalleFactura = idDetalleFactura;
     }
 
     public String getRuc() {
@@ -52,6 +53,14 @@ public class Proveedor
         this.nombreProveedor = nombreProveedor;
     }
 
+    public String getApellidoProveedor() {
+        return apellidoProveedor;
+    }
+
+    public void setApellidoProveedor(String apellidoProveedor) {
+        this.apellidoProveedor = apellidoProveedor;
+    }
+
     public String getDireccionProveedor() {
         return direccionProveedor;
     }
@@ -60,7 +69,9 @@ public class Proveedor
         this.direccionProveedor = direccionProveedor;
     }
 
-    public Lista<FacturaCompra> getListaFacturasCompras() {
+    public Lista<FacturaCompra> getListaFacturasCompras()
+    {
+        if(listaFacturasCompras == null) listaFacturasCompras = new Lista<>();
         return listaFacturasCompras;
     }
 
