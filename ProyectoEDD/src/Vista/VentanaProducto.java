@@ -9,7 +9,6 @@ import Controlador.ControladorKardex;
 import Controlador.ControladorPersona;
 import Controlador.ControladorMarca;
 import Controlador.ControladorProducto;
-import Vista.ModeloTablas.ModeloTablaProductoCompra;
 import java.awt.Image;
 import java.io.File;
 import java.time.LocalDate;
@@ -23,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Usuario
+ * @author ANDRES
  */
 public class VentanaProducto extends javax.swing.JFrame {
     ControladorKardex ck = new ControladorKardex();

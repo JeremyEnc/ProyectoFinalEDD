@@ -9,7 +9,6 @@ import Controlador.ControladorPersona;
 import Controlador.ControladorProducto;
 import Controlador.EstructurasDinamicas.Lista;
 import Modelo.Kardex;
-import Modelo.Producto;
 import Vista.ModeloTablas.ModeloTablaKardex;
 
 /**
@@ -89,6 +88,7 @@ public class VentanaKardex extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -128,6 +128,8 @@ public class VentanaKardex extends javax.swing.JFrame {
 
         jLabel4.setText("SALIDA");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 436));
 
         jMenu5.setText("Comprar");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -186,19 +188,6 @@ public class VentanaKardex extends javax.swing.JFrame {
         jMenuBar1.add(jMenu8);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

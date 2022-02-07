@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Usuario
+ * @author ANDRES
  */
 public class VentanaMarca extends javax.swing.JFrame {
     ControladorMarca mc = new ControladorMarca();
