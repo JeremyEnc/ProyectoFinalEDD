@@ -6,13 +6,14 @@
 package Modelo;
 
 import Controlador.EstructurasDinamicas.Lista;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author jere_
  */
-public class FacturaCompra
+public class FacturaCompra implements Serializable
 {
     private Long id;
     private String nroFactura;
@@ -70,7 +71,12 @@ public class FacturaCompra
         this.total = total;
     }
 
-    public Lista<DetalleCompra> getListaDetalles() {
+    public Lista<DetalleCompra> getListaDetalles() 
+    {
+        if(listaDetalles == null)
+        {
+            listaDetalles = new Lista<>();
+        }
         return listaDetalles;
     }
 
