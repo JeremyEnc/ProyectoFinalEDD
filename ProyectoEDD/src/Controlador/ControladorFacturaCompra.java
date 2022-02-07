@@ -8,7 +8,7 @@ package Controlador;
 
 import Modelo.DetalleCompra;
 import Modelo.FacturaCompra;
-import Modelo.Proveedor;
+import java.util.Date;
 
 /**
  *
@@ -17,22 +17,28 @@ import Modelo.Proveedor;
 public class ControladorFacturaCompra 
 {
     FacturaCompra factura;
-    Proveedor proveedor;
-    
+    private Double iva;
+
+    public ControladorFacturaCompra(Double iva)
+    {
+        this.iva = iva;
+        this.factura = new FacturaCompra();
+    }
+
+    public Double getIva() {
+        return iva;
+    }
+
+    public void setIva(Double Iva) {
+        this.iva = Iva;
+    }
+ 
     public FacturaCompra getFactura() {
         return factura;
     }
 
     public void setFactura(FacturaCompra factura) {
         this.factura = factura;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
     }
 
     public void generarNumeroFactura()
@@ -57,7 +63,7 @@ public class ControladorFacturaCompra
     
     public void calcularIva()
     {
-        double precioIva = factura.getSubTotal() * 0.12;
+        Double precioIva = factura.getSubTotal() * iva;
         factura.setIva(precioIva);
     }
     
@@ -72,9 +78,19 @@ public class ControladorFacturaCompra
     {
         long id = factura.getListaDetalles().length() + 1;
         
+        
         DetalleCompra detCompra = new DetalleCompra(id, factura.getId(), idProducto, cantidad, precio);
         
         factura.getListaDetalles().add(detCompra);
+        
+        calcularSubtotal();
+        calcularIva();
+        calcularTotal();
+    }
+    
+    public void calcularFecha()
+    {
+        factura.setFecha(new Date());
     }
     
     
