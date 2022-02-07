@@ -5,15 +5,20 @@
  */
 package Modelo;
 
-import Modelo.enums.Prenda;
-import Modelo.enums.TipoPrenda;
+import Modelo.Enum.Color;
+import Modelo.Enum.TipoPrenda;
+import Modelo.Enum.Prenda;
+import Modelo.Enum.Talla;
 import java.io.Serializable;
+import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Usuario
  */
-public class Producto  implements Serializable{
+public class Producto  implements Serializable
+{
     Marca marca;
     Long id;
     Double precioVenta;
@@ -23,11 +28,21 @@ public class Producto  implements Serializable{
     String codigo;
     Long idProducto;
     TipoPrenda tipoPrenda;
-    //Talla talla;
+    Talla talla;
     Prenda prenda;
-    //Color color;
+    Color color;
     Double porcentajeDesc;
     boolean estadoDes;
+    ImageIcon icon;
+    Date fechaCompra;
+
+    public Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
 
     public Producto(Marca marca, Double precioVenta, Double precioCompra, int stock, String nombre, String codigo, Long idProducto, TipoPrenda tipoPrenda, Prenda prenda, Double porcentajeDesc, boolean estadoDes) {
         this.marca = marca;
@@ -46,8 +61,30 @@ public class Producto  implements Serializable{
     public Producto() {
     }
 
-    public Marca getMarca() {
+    public Marca getMarca()
+    {
+        if(marca == null)
+        {
+            marca = new Marca();
+        }
+        
         return marca;
+    }
+
+    public Talla getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Talla talla) {
+        this.talla = talla;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void setMarca(Marca marca) {
@@ -140,6 +177,14 @@ public class Producto  implements Serializable{
 
     public void setEstadoDes(boolean estadoDes) {
         this.estadoDes = estadoDes;
+    }
+
+    public ImageIcon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(ImageIcon icon) {
+        this.icon = icon;
     }
     
     
