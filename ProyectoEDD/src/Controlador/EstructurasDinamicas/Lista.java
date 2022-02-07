@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +5,12 @@
  */
 package Controlador.EstructurasDinamicas;
 
+import Modelo.Enum.Color;
+import Modelo.Enum.Prenda;
+import Modelo.Enum.TipoPrenda;
+import Modelo.Marca;
 import Modelo.Nodo.Nodo;
+import Modelo.Rol;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -87,25 +91,26 @@ public class Lista <T> implements Serializable
     public void replace(T dato, int index)
     {
         if(index < length() && index >= 0)
+        {
+            Nodo iterator = cabecera;
+
+            for (int i = 0; i < index; i++)
             {
-                Nodo iterator = cabecera;
-
-                for (int i = 0; i < index; i++)
+                if (iterator.getNodoNext() == null)
                 {
-                    if (iterator.getNodoNext() == null)
-                    {
-                        break;
-                    }
-
-                    iterator = iterator.getNodoNext();
+                    break;
                 }
 
-                iterator.setDato(dato);
+                    iterator = iterator.getNodoNext();
             }
-            else
-            {
-                System.out.println("La posicion ingresada no existe");
-            }  
+                
+                iterator.setDato(dato);
+                
+            }
+        else
+        {
+            System.out.println("La posicion ingresada no existe");
+        }  
     }
     
     public int getIndexOf(T dato)
@@ -233,7 +238,7 @@ public class Lista <T> implements Serializable
     }
     
     //Metodo para obtener un atributo de la clase asignada a la lista
-    private Field getField(String nombre)
+    private Field getField(String nombre) throws NullPointerException
     {
         for(Field field: clazz.getDeclaredFields())
         { 
@@ -432,7 +437,7 @@ public class Lista <T> implements Serializable
         }
     }
     
-    public void sortByQuickSort(String atributo, int orden, int izq, int der)
+    public void sortByQuickSort(String atributo, int orden, int izq, int der) throws NullPointerException
     {
         try
         {
@@ -487,6 +492,7 @@ public class Lista <T> implements Serializable
 
                             if (band2)j--;
                         }
+                        
                     }
 
                     if (i < j)
@@ -528,7 +534,7 @@ public class Lista <T> implements Serializable
             {
                 try 
                 {
-                    if (getField(atributo).get(getByIndex(i)).toString().contains(T.toString()))
+                    if (getField(atributo).get(getByIndex(i)).toString().toLowerCase().contains(T.toString().toLowerCase()))
                     {
                         lista.add(getByIndex(i));
                     }
@@ -557,6 +563,95 @@ public class Lista <T> implements Serializable
                 }
             }
         }
+        else if (T instanceof Marca)
+        {
+            for (int i = 0; i < length(); i++)
+            {
+                try 
+                {
+                    if (((Marca)(getField(atributo).get(getByIndex(i)))).getNombreMarca().toLowerCase().contains(((Marca) T).getNombreMarca()))
+                    {
+                        lista.add(getByIndex(i));
+                    }
+                } 
+                catch (IllegalArgumentException | IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        else if (T instanceof TipoPrenda)
+        {
+            for (int i = 0; i < length(); i++)
+            {
+                try 
+                {
+                    if (((TipoPrenda)(getField(atributo).get(getByIndex(i)))).name().contains(((TipoPrenda) T).name()))
+                    {
+                        lista.add(getByIndex(i));
+                    }
+                } 
+                catch (IllegalArgumentException | IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        else if (T instanceof Prenda){
+            for (int i = 0; i < length(); i++)
+            {
+                try 
+                {
+                    if (((Prenda)(getField(atributo).get(getByIndex(i)))).name().contains(((Prenda) T).name()))
+                    {
+                        lista.add(getByIndex(i));
+                    }
+                } 
+                catch (IllegalArgumentException | IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        else if (T instanceof Color)
+        {
+            for (int i = 0; i < length(); i++)
+            {
+                try 
+                {
+                    if (((Color)(getField(atributo).get(getByIndex(i)))).name().contains(((Color) T).name()))
+                    {
+                        lista.add(getByIndex(i));
+                    }
+                } 
+                catch (IllegalArgumentException | IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        else if (T instanceof Rol)
+        {
+            for (int i = 0; i < length(); i++)
+            {
+                try 
+                {
+                    if (((Rol)(getField(atributo).get(getByIndex(i)))).getNombreRol().contains(((Rol) T).getNombreRol()))
+                    {
+                        lista.add(getByIndex(i));
+                    }
+                } 
+                catch (IllegalArgumentException | IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
         
            
         return lista;
@@ -567,6 +662,9 @@ public class Lista <T> implements Serializable
     //Metodo para buscar en la lista de forma binaria y obtener un solo objeto 
     public T uniqueSearch(String atributo, Object T, int der, int izq)
     {
+        
+        sortByQuickSort(atributo, 1, izq, der);
+        
         try
         {
             int medio = (der + izq)/2;
