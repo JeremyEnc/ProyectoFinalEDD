@@ -5,12 +5,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 
 /**
  *
  * @author jere_
  */
-public class DetalleCompra
+public class DetalleCompra implements Serializable
 {
     private Long id;
     private Long idFactura;
