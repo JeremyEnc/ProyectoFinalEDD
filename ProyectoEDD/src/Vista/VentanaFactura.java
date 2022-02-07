@@ -60,7 +60,7 @@ public class VentanaFactura extends javax.swing.JDialog {
         txt_apellidoCliente.setText(cp.getPersona().getApellidos());
         txt_nroCedula.setText(cp.getPersona().getIdentificacion());
         txt_nroFactura.setText(cf.getFactura().getNroFactura());
-        txt_fechaFac.setText(cf.getFactura().getFecha().getDate() + "/" + cf.getFactura().getFecha().getMonth() + "/" + cf.getFactura().getFecha().getYear());
+        txt_fechaFac.setText(cf.getFactura().getFecha().getDate() + "/" + (cf.getFactura().getFecha().getMonth()+1) + "/" + (cf.getFactura().getFecha().getYear()+1900));
         txt_IVA.setText(dc.format(cf.getFactura().getIva()));
         txt_subT.setText(cf.getFactura().getSubTotal().toString());
         txt_total.setText(cf.getFactura().getTotal().toString());
