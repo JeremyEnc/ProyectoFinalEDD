@@ -24,6 +24,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -197,28 +198,29 @@ public class ControladorPersona extends AdaptadorDao<Persona> {
                 .toInstant());
     }
 
-    public void crearPDF(Factura factura, String path) throws DocumentException {
+    public void crearPDF(Factura factura, String path) throws DocumentException{
         FileOutputStream ficheroPdf = null;
+        DecimalFormat dc = new DecimalFormat("##.##");
         try {
             Document documento = new Document();
             ficheroPdf = new FileOutputStream(path);
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
             documento.open();
-
+            
             documento.add(new Paragraph("TIENDA DE ROPA\n"));
-            documento.add(new Paragraph("NRO FACTURA: " + factura.getNroFactura()));
-            documento.add(new Paragraph("FECHA DE EMISION: " + factura.getFecha().getDate() + "/" + factura.getFecha().getMonth() + "/" + factura.getFecha().getYear()));
-            documento.add(new Paragraph("IDENTIFICACIÓN: " + persona.getIdentificacion()));
-            documento.add(new Paragraph("CLIENTE: " + persona.getNombres() + " " + persona.getApellidos()));
-            documento.add(new Paragraph("DIRECCION: " + persona.getDireccion()));
-            documento.add(new Paragraph("E-MAIL: " + persona.getCorreo()));
+            documento.add(new Paragraph("NRO FACTURA: "+factura.getNroFactura()));
+            documento.add(new Paragraph("FECHA DE EMISION: "+factura.getFecha().getDate()+"/"+(factura.getFecha().getMonth()+1)+"/"+(factura.getFecha().getYear()+1900)));
+            documento.add(new Paragraph("IDENTIFICACIÓN: "+persona.getIdentificacion()));
+            documento.add(new Paragraph("CLIENTE: "+persona.getNombres()+" "+persona.getApellidos()));
+            documento.add(new Paragraph("DIRECCION: "+persona.getDireccion()));
+            documento.add(new Paragraph("E-MAIL: "+persona.getCorreo()));
             documento.add(new Paragraph("\n\n"));
-
+            
             PdfPTable tabla = new PdfPTable(5);
             int j = 0;
-            for (int i = 0; i < (5 * (factura.getDetallesFactura().length() + 1)); i++) {
-                if (i < 5) {
-                    switch (i) {
+            for (int i = 0; i < (5*(factura.getDetallesFactura().length()+1)); i++) {
+                if(i < 5){
+                    switch(i){
                         case 0:
                             tabla.addCell("NOMBRE");
                             break;
@@ -235,7 +237,7 @@ public class ControladorPersona extends AdaptadorDao<Persona> {
                             tabla.addCell("PRECIO TOTAL");
                             break;
                     }
-                } else if (i % 5 == 0) {
+                }else if(i % 5 == 0){
                     tabla.addCell(factura.getDetallesFactura().getByIndex(j).getProducto().getNombre());
                     tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getCantidad()));
                     tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getProducto().getPorcentajeDesc()));
@@ -247,11 +249,11 @@ public class ControladorPersona extends AdaptadorDao<Persona> {
             }
             documento.add(tabla);
             documento.add(new Paragraph("\n\n"));
-            documento.add(new Paragraph("SUBTOTAL: " + factura.getSubTotal()));
-            documento.add(new Paragraph("VALOR IVA: " + factura.getIva()));
-            documento.add(new Paragraph("TOTAL: " + factura.getTotal()));
+            documento.add(new Paragraph("SUBTOTAL: "+ dc.format(factura.getSubTotal())));
+            documento.add(new Paragraph("VALOR IVA: "+dc.format(factura.getIva())));
+            documento.add(new Paragraph("TOTAL: "+dc.format(factura.getTotal())));
             documento.close();
-        } catch (FileNotFoundException ex) {
+         } catch (FileNotFoundException ex) {
             System.out.println("error1pdf");
         } catch (DocumentException ex) {
             System.out.println("error2pdf");
