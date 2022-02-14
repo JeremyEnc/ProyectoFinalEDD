@@ -123,7 +123,7 @@ public class VentanaRegistro extends javax.swing.JDialog {
      * `Permite borrar usuarios o proveedores del sistema de acuerdo a su
      * identificacion
      *
-     * @param identificacion
+     * @param identificacion identificacion de la persona a borrar
      */
     public void borrarUsuario(String identificacion) {
 
