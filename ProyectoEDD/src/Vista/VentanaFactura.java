@@ -41,8 +41,8 @@ public class VentanaFactura extends javax.swing.JDialog {
      *
      * @param parent parent
      * @param modal modal
-     * @param ctrlPersona controlador de persona para sacar sus respectivos
-     * atributos
+     * @param ctrlPersona controlador de persona para sacar sus respectivos atributos
+     * 
      * @param cf controlador de factura para sacar sus respectivos atributos
      * @param cp1 controlador de producto para sacar sus respectivos atributos
      */
