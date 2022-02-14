@@ -7,7 +7,6 @@ package Controlador;
 
 import Controlador.Dao.AdaptadorDao;
 import Controlador.EstructurasDinamicas.Lista;
-import Modelo.Marca;
 import Modelo.Producto;
 import Modelo.Enum.Prenda;
 import Modelo.Enum.Talla;
@@ -16,36 +15,59 @@ import Modelo.Enum.Color;
 
 /**
  *
- * @author Usuario
+ * @author ANDRES
  */
     public class ControladorProducto extends AdaptadorDao<Producto> {
 
     Producto producto;
     Lista<Producto> productos = new Lista();
 
+    /**
+     * Constructor vacio de controlador de producto
+     */
     public ControladorProducto() {
         super(Producto.class);
     }
-
+    
+    /**
+     * Retorna el producto actual
+     * @return el producto
+     */
     public Producto getProducto() {
         if (producto == null) {
             producto = new Producto();
         }
         return producto;
     }
-
+    
+    /**
+     * Establece el producto
+     * @param producto Nuevo producto
+     */
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
 
+    /**
+     * Retorna la lista de productos
+     * @return la lista de productos
+     */
     public Lista<Producto> getProductos() {
         return productos;
     }
-
+    
+    /**
+     * Permite establecer la lista de productos
+     * @param productos Nueva lista de productos
+     */
     public void setProductos(Lista<Producto> productos) {
         this.productos = productos;
     }
-
+    
+    /**
+     * Guarda el producto actual
+     * @return True or False
+     */
     public boolean guardar() {
         try {
             Double desc = Double.valueOf(producto.getPorcentajeDesc() / 100);
@@ -58,15 +80,28 @@ import Modelo.Enum.Color;
         }
     }
 
+    /**
+     * Calcula el descuento
+     * @return Descuento en dolares
+     */
     public double calcularDescuento() {
         return producto.getPrecioVenta() * producto.getPorcentajeDesc();
     }
 
+    /**
+     * Elimina el producto seleccionado
+     */    
     public void eliminarProducto() {
-        this.producto = null;
-        listar();
+        setProductos(listar());
+        productos.remove(producto.getIdProducto().intValue());
+        guardarNuevaLista(productos);
     }
-
+    
+    /**
+     * Permite buscar la prenda mediante el indice del enum
+     * @param prendaIndex
+     * @return La prenda
+     */
     public Prenda buscarPrenda(int prendaIndex) {
         switch (prendaIndex) {
             case 0:
@@ -85,7 +120,12 @@ import Modelo.Enum.Color;
                 return null;
         }
     }
-
+    
+    /**
+     * Permite buscar el tipo de prenda mediante el indicedel enum
+     * @param index
+     * @return El tipo de prenda
+     */
     public TipoPrenda buscarTipoPrenda(int index) {
         switch (index) {
             case 0:
@@ -99,6 +139,11 @@ import Modelo.Enum.Color;
         }
     }
     
+    /**
+     * Permite buscar la talla por el indice del enum
+     * @param index
+     * @return La talla
+     */
     public Talla buscarTalla(int index) {
         switch (index) {
             case 0:
@@ -116,6 +161,11 @@ import Modelo.Enum.Color;
         }
     }
     
+    /**
+     * Busca el color mediante el indice del color
+     * @param index
+     * @return El color
+     */
     public Color buscarColor(int index) {
         switch (index) {
             case 0:
@@ -139,6 +189,11 @@ import Modelo.Enum.Color;
         }
     }
     
+    /**
+     * Imprime el producto mediante el indice
+     * @param i
+     * @return Valores de producto en consola
+     */
     public Lista<Producto> generarTipo(int i){
         Lista<Producto> lista = new Lista<>();
         productos = listar();
