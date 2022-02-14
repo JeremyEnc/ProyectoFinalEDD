@@ -13,19 +13,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author jere_
- * @param <T>
+ * @param <T> Es el tipo de objeto que se va a guardar en archivos
  */
-public class AdaptadorDao <T >implements InterfazDao<T>
+public class AdaptadorDao <T> implements InterfazDao<T>
 {
-    private String CARPETA = "files" + File.separatorChar;
-    private final Class clazz;
+    private String CARPETA = "files" + File.separatorChar;//La direccion y el nombre en la que se almacenara el archivo con la informacion guardada
+    private final Class clazz;//La clase a la que pertenece el objeto a guardar
 
+    /**
+     * Constructor que sirve para recuperar la clase a la que pertence el objeto a guardar
+     * @param clazz La clase a la que pertenece el objeto a guardar
+     */
     public AdaptadorDao(Class clazz)
     {
         this.clazz = clazz;
@@ -49,6 +51,10 @@ public class AdaptadorDao <T >implements InterfazDao<T>
         }
     }
     
+    /**
+     * Metodo para remplazar la lista completa que se encuentra en el archivo
+     * @param lista la lista que va a remplazar a la anterior
+     */
     public void guardarNuevaLista(Lista<T> lista)
     {
         try {
@@ -94,6 +100,12 @@ public class AdaptadorDao <T >implements InterfazDao<T>
         return lista;
     }
     
+    /**
+     * Metodo que sirve para guardar en archivos la lista deseada
+     * @param aux es la lista que se va a guardar
+     * @throws FileNotFoundException Si el programa no encuentra el archivo en el que se va a guardar
+     * @throws IOException En caso de que exista cualquier otro error
+     */
     private void guardarEnFile(Lista<T> aux) throws FileNotFoundException, IOException
     {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CARPETA, false));
