@@ -10,15 +10,17 @@ import Controlador.ControladorProducto;
 import Controlador.EstructurasDinamicas.Lista;
 import Modelo.Kardex;
 import Vista.ModeloTablas.ModeloTablaKardex;
+import java.awt.Color;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
  * @author ANDRES
  */
 public class VentanaKardex extends javax.swing.JFrame {
-
-    ControladorProducto ctrlProducto;
-    ControladorPersona ctrlPersona;
+    ControladorProducto ctrlProducto; //Controlador del producto
+    ControladorPersona ctrlPersona; //Controlador de la persona 
     ControladorKardex ck = new ControladorKardex();
     ModeloTablaKardex modelo = new ModeloTablaKardex();
     
@@ -26,29 +28,51 @@ public class VentanaKardex extends javax.swing.JFrame {
     /**
      * Creates new form VentanaKardex
      */
-
     public VentanaKardex(ControladorProducto ctrl, ControladorPersona ctrlPersona) {
         initComponents();
         this.ctrlProducto = ctrl;
         cbxProductos.removeAllItems();
         cargarCombos();
+        encabezadoColor();
         this.ctrlPersona = ctrlPersona;
         this.setLocationRelativeTo(null);
     }
-
+    
+    /**
+     * Da color al encabezado de la tabla
+     */
+    private void encabezadoColor() {
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(51, 153, 255));
+        for (int i = 0; i < 10; i++) {
+            TableColumn column = tblKardex.getTableHeader().getColumnModel().getColumn(i);
+            column.setHeaderRenderer(cellRenderer);
+            cellRenderer.setHorizontalAlignment(cellRenderer.CENTER);
+        }
+    }
+    
+    /**
+     * Carga los ComboBox con los productos
+     */
     private void cargarCombos() {
         for (int i = 0; i < 6; i++) {
             cbxProductos.addItem(String.valueOf(ctrlProducto.buscarPrenda(i)));
         }
     }
-
+    
+    /**
+     * Carga la tabla del kardex
+     * @param lista Lista de kardex
+     */
     private void cargarTabla(Lista<Kardex> lista) {
         modelo.setProductosLista(lista);
         tblKardex.setModel(modelo);
         tblKardex.updateUI();
-
     }
-
+    
+    /**
+     * Carga los productos en una lista
+     */
     private void cargarProductos() {
         Lista<Kardex> compras = new Lista<>();
         ck.setListaKardex(ck.listar());
@@ -71,13 +95,16 @@ public class VentanaKardex extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblKardex = new javax.swing.JTable();
-        cbxProductos = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblKardex = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        cbxProductos = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -90,13 +117,39 @@ public class VentanaKardex extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoKardex.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("KARDEX");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 840, 50));
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 70));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255), 4));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("ENTRADA");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 80, 240, -1));
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("SALIDA");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 240, -1));
+
+        tblKardex.setBackground(new java.awt.Color(255, 255, 255));
+        tblKardex.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        tblKardex.setForeground(new java.awt.Color(0, 0, 0));
         tblKardex.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
@@ -110,26 +163,28 @@ public class VentanaKardex extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblKardex);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 840, 310));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 820, 220));
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Producto");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+
+        cbxProductos.setBackground(new java.awt.Color(51, 153, 255));
+        cbxProductos.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cbxProductos.setForeground(new java.awt.Color(0, 0, 0));
         cbxProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxProductos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbxProductosItemStateChanged(evt);
             }
         });
-        jPanel1.add(cbxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 210, -1));
+        jPanel2.add(cbxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 210, 30));
 
-        jLabel2.setText("Producto");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/kardexRopaIcon.png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jLabel3.setText("ENTRADA");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
-
-        jLabel4.setText("SALIDA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 436));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 840, 330));
 
         jMenu5.setText("Comprar");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -288,6 +343,8 @@ public class VentanaKardex extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -297,6 +354,7 @@ public class VentanaKardex extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKardex;
     // End of variables declaration//GEN-END:variables

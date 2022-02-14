@@ -7,6 +7,9 @@ package Vista;
 import Controlador.ControladorPersona;
 import Controlador.ControladorProducto;
 import Vista.ModeloTablas.ModeloTablaProductoCompra;
+import java.awt.Color;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -22,15 +25,36 @@ public class VentanaProductosRegistrados extends javax.swing.JFrame {
     public VentanaProductosRegistrados() {
         initComponents();
     }
-
+    /**
+     * Constructor de ventana de productos registrados
+     * @param pc Controlador del producto
+     * @param cp Controlador de la persona
+     */
     public VentanaProductosRegistrados(ControladorProducto pc, ControladorPersona cp) {
         initComponents();
         this.pc = pc;
         this.cp = cp;
         cargarTabla();
+        encabezadoColor();
         this.setLocationRelativeTo(null);
     }
     
+    /**
+     * Da color al encabezado de la tabla
+     */
+    private void encabezadoColor() {
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(51, 153, 255));
+        for (int i = 0; i < 9; i++) {
+            TableColumn column = tblProductos.getTableHeader().getColumnModel().getColumn(i);
+            column.setHeaderRenderer(cellRenderer);
+            cellRenderer.setHorizontalAlignment(cellRenderer.CENTER);
+        }
+    }
+    
+    /**
+     * Carga la tabla de productos
+     */
     private void cargarTabla() {
         modelo.setLista(pc.listar());
         tblProductos.setModel(modelo);
@@ -45,11 +69,62 @@ public class VentanaProductosRegistrados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        butVolver = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoVerProductos.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, 40));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PRODUCTOS REGISTRADOS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 740, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 80));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        butVolver.setBackground(new java.awt.Color(255, 255, 255));
+        butVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        butVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                butVolverMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                butVolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                butVolverMouseExited(evt);
+            }
+        });
+        butVolver.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoRegresar.png"))); // NOI18N
+        butVolver.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("REGRESAR");
+        butVolver.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, -2, 230, 50));
+
+        jPanel2.add(butVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 280, 50));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,44 +137,32 @@ public class VentanaProductosRegistrados extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblProductos);
+        jScrollPane1.setViewportView(tblProductos);
 
-        jButton1.setText("REGRESAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 770, 170));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 10, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, 230));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void butVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butVolverMouseExited
         // TODO add your handling code here:
+        Color color1 = new Color(255,255,255);
+        butVolver.setBackground(color1);
+    }//GEN-LAST:event_butVolverMouseExited
+
+    private void butVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butVolverMouseEntered
+        // TODO add your handling code here:
+        Color color1 = new Color(204,204,204);
+        butVolver.setBackground(color1);
+    }//GEN-LAST:event_butVolverMouseEntered
+
+    private void butVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butVolverMouseClicked
+        // TODO add your handling code here:
+
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_butVolverMouseClicked
 
     /**
      * @param args the command line arguments
@@ -138,8 +201,14 @@ public class VentanaProductosRegistrados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel butVolver;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProductos;
     // End of variables declaration//GEN-END:variables
 }
