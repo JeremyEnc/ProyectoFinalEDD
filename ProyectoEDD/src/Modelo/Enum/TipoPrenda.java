@@ -12,6 +12,10 @@ package Modelo.Enum;
 public enum TipoPrenda {
     Hombre, Mujer, Unisex;
     
+    /**
+     * Retorna el tipo de prenda
+     * @return El tipo de prenda
+     */
     @Override
     public String toString() {
         return this.name();

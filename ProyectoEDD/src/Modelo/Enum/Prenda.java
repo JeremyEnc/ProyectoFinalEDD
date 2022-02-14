@@ -7,11 +7,15 @@ package Modelo.Enum;
 
 /**
  *
- * @author Usuario
+ * @author ANDRES
  */
 public enum Prenda {
     Camiseta, Pantalon, Chompa, Blusa, Vestido, Falda; 
     
+    /**
+     * Retorna el nombre de la prenda
+     * @return El nobmre de prenda
+     */
     @Override
     public String toString() {
         return this.name();
