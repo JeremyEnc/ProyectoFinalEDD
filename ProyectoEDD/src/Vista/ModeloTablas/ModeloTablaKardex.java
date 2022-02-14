@@ -16,7 +16,10 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaKardex extends AbstractTableModel {
     Lista<Kardex> productosLista = new Lista<>();
 
-   
+   /**
+    * Retorna la lista de objetos kardex
+    * @return Lista de tipo kardex
+    */
     public Lista<Kardex> getProductosLista() {
         return productosLista;
     }
@@ -29,7 +32,10 @@ public class ModeloTablaKardex extends AbstractTableModel {
     public void setProductosLista(Lista<Kardex> productosLista) {   
         this.productosLista = productosLista;
     }
-
+    
+    /**
+     * Constructor vacio de Modelo Tabla Kardex
+     */
     public ModeloTablaKardex() {
     }
 

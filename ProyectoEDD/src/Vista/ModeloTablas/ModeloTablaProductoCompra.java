@@ -58,6 +58,7 @@ public class ModeloTablaProductoCompra extends AbstractTableModel {
         }
     }
     /**
+     * Retorna la lista de productos
      * @return the lista
      */
     public Lista<Producto> getLista() {
@@ -65,7 +66,8 @@ public class ModeloTablaProductoCompra extends AbstractTableModel {
     }
 
     /**
-     * @param lista the lista to set
+     * Establece la lista de productos
+     * @param lista Nueva lista
      */
     public void setLista(Lista lista) {
         this.lista = lista;
