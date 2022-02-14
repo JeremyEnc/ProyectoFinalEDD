@@ -323,23 +323,57 @@ public class ControladorPersona extends AdaptadorDao<Persona> {
      * @param path ruta donde se guardara el documento
      * @throws DocumentException
      */
-    public void crearPDF(Factura factura, String path) throws DocumentException {
+    public void crearPDF(Factura factura, String path) throws DocumentException, BadElementException, IOException {
         FileOutputStream ficheroPdf = null;
+        DecimalFormat dc = new DecimalFormat("##.##");
         try {
             Document documento = new Document();
             ficheroPdf = new FileOutputStream(path);
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
             documento.open();
 
-            documento.add(new Paragraph("TIENDA DE ROPA\n"));
-            documento.add(new Paragraph("NRO FACTURA: " + factura.getNroFactura()));
-            documento.add(new Paragraph("FECHA DE EMISION: " + factura.getFecha().getDate() + "/" + factura.getFecha().getMonth() + "/" + factura.getFecha().getYear()));
-            documento.add(new Paragraph("IDENTIFICACIÓN: " + persona.getIdentificacion()));
-            documento.add(new Paragraph("CLIENTE: " + persona.getNombres() + " " + persona.getApellidos()));
-            documento.add(new Paragraph("DIRECCION: " + persona.getDireccion()));
-            documento.add(new Paragraph("E-MAIL: " + persona.getCorreo()));
-            documento.add(new Paragraph("\n\n"));
+            Image header = Image.getInstance("src/Imagenes/ENCABEZADO.png");
+            header.scaleToFit(650, 1000);
+            header.setAlignment(Chunk.ALIGN_CENTER);
+            documento.add(header);
 
+            PdfPTable tablaDatos = new PdfPTable(2);
+            for (int i = 0; i < 6; i++) {
+                switch (i) {
+                    case 0:
+                        tablaDatos.addCell("NRO FACTURA: " + factura.getNroFactura());
+                        break;
+                    case 1:
+                        tablaDatos.addCell("FECHA DE EMISION: " + factura.getFecha().getDate() + "/" + (factura.getFecha().getMonth() + 1) + "/" + (factura.getFecha().getYear() + 1900));
+                        break;
+                    case 2:
+                        tablaDatos.addCell("IDENTIFICACIÓN: " + persona.getIdentificacion());
+                        break;
+                    case 3:
+                        tablaDatos.addCell("CLIENTE: " + persona.getNombres() + " " + persona.getApellidos());
+                        break;
+                    case 4:
+                        tablaDatos.addCell("DIRECCION: " + persona.getDireccion());
+                        break;
+                    case 5:
+                        tablaDatos.addCell("E-MAIL: " + persona.getCorreo());
+                        break;
+                }
+            }
+            documento.add(new Paragraph("\n\n"));
+            Paragraph q = new Paragraph("DATOS CLIENTE");
+            q.setAlignment(Element.ALIGN_CENTER);
+            documento.add(q);
+            documento.add(new Paragraph("\n\n"));
+            
+            documento.add(tablaDatos);
+            
+            documento.add(new Paragraph("\n\n"));
+            Paragraph p = new Paragraph("PRODUCTOS COMPRADOS");
+            p.setAlignment(Element.ALIGN_CENTER);
+            documento.add(p);
+            documento.add(new Paragraph("\n\n"));
+            
             PdfPTable tabla = new PdfPTable(5);
             int j = 0;
             for (int i = 0; i < (5 * (factura.getDetallesFactura().length() + 1)); i++) {
@@ -365,17 +399,17 @@ public class ControladorPersona extends AdaptadorDao<Persona> {
                     tabla.addCell(factura.getDetallesFactura().getByIndex(j).getProducto().getNombre());
                     tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getCantidad()));
                     tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getProducto().getPorcentajeDesc()));
-                    tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getPrecioUnitario()));
-                    tabla.addCell(String.valueOf(factura.getDetallesFactura().getByIndex(j).getPrecioTotal()));
+                    tabla.addCell(String.valueOf("$" + factura.getDetallesFactura().getByIndex(j).getPrecioUnitario()));
+                    tabla.addCell(String.valueOf("$" + factura.getDetallesFactura().getByIndex(j).getPrecioTotal()));
                     j++;
                     i += 5;
                 }
             }
             documento.add(tabla);
             documento.add(new Paragraph("\n\n"));
-            documento.add(new Paragraph("SUBTOTAL: " + factura.getSubTotal()));
-            documento.add(new Paragraph("VALOR IVA: " + factura.getIva()));
-            documento.add(new Paragraph("TOTAL: " + factura.getTotal()));
+            documento.add(new Paragraph("SUBTOTAL: $" + dc.format(factura.getSubTotal())));
+            documento.add(new Paragraph("VALOR IVA: $" + dc.format(factura.getIva())));
+            documento.add(new Paragraph("TOTAL: $" + dc.format(factura.getTotal())));
             documento.close();
         } catch (FileNotFoundException ex) {
             System.out.println("error1pdf");
